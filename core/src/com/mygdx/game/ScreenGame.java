@@ -44,7 +44,7 @@ public class ScreenGame implements Screen {
 		for(int i=0; i<imgMosq.length; i++){
 			imgMosq[i] = new Texture("mosq"+i+".png");
 		}
-		imgBackGround = new Texture("backgrounds/bg_boloto.jpg");
+		imgBackGround = new Texture("backgrounds/bg_shkola.png");
 		imgBtnMenu = new Texture("menu.png");
 
 		// создаём объекты звуков
