@@ -46,7 +46,7 @@ public class ScreenGame implements Screen {
 		for(int i=0; i<imgMosq.length; i++){
 
 			imgMosq[i] = new Texture("mosq"+i+".png");
-			imgbukva[i] = new Texture("bukva"+i+"png");
+			imgbukva[i] = new Texture("bukva"+i+".png");
 		}
 		imgBackGround = new Texture("backgrounds/bg_shkola.png");
 		imgBtnMenu = new Texture("menu.png");
@@ -62,10 +62,10 @@ public class ScreenGame implements Screen {
 		if(mgg.musicOn) sndMusic.play();
 
 		// создаём объекты игроков для таблицы рекордов
-		for (int i = 0; i < players.length; i++) {
-			players[i] = new Player("Noname", 0);
-		}
-		loadTableOfRecords();
+		//for (int i = 0; i < players.length; i++) {
+		//	players[i] = new Player("Noname", 0);
+		//}
+		//loadTableOfRecords();
 
 		// создаём кнопки
 		btnRestart = new MosquitoButton(mgg.font, "RESTART", 450, 200);

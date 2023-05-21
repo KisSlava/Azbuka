@@ -18,7 +18,7 @@ public class ScreenSettings implements Screen {
 
     public ScreenSettings(MyGdxGame myGdxGame){
         mgg = myGdxGame;
-        imgBackGround = new Texture("backgrounds/bg_settings.jpg");
+        imgBackGround = new Texture("backgrounds/bg_shkola2.jpeg");
         // создаём кнопки
         btnMode = new MosquitoButton(mgg.fontLarge, "Mode: Easy", 500, 550);
         btnSound = new MosquitoButton(mgg.fontLarge, "Sound: ON", 500, 450);
@@ -96,7 +96,7 @@ public class ScreenSettings implements Screen {
         btnMode.font.draw(mgg.batch, btnMode.text, btnMode.x, btnMode.y);
         btnSound.font.draw(mgg.batch, btnSound.text, btnSound.x, btnSound.y);
         btnMusic.font.draw(mgg.batch, btnMusic.text, btnMusic.x, btnMusic.y);
-        btnClearRecords.font.draw(mgg.batch, btnClearRecords.text, btnClearRecords.x, btnClearRecords.y);
+        //btnClearRecords.font.draw(mgg.batch, btnClearRecords.text, btnClearRecords.x, btnClearRecords.y);
         btnBack.font.draw(mgg.batch, btnBack.text, btnBack.x, btnBack.y);
         mgg.batch.end();
     }

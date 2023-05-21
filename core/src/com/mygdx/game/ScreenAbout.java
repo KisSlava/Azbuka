@@ -13,16 +13,16 @@ public class ScreenAbout implements Screen {
     Texture imgBackGround; // фон
     MosquitoButton btnBack;
 
-    String textAbout =  "Игра Crazy Mosquitos создана\n" +
+    String textAbout =  "Игра Азбука создана\n" +
                         "в рамках проекта Mobile Game\n" +
                         "Development на языке Java\n" +
                         "с использованием LibGDX.\n" +
-                        "Цель игры: как можно быстрее\n" +
-                        "сбить всех комаров.";
+                        "Цель игры: помочь детям\n" +
+                        "в изучении букв.";
 
     public ScreenAbout(MyGdxGame myGdxGame){
         mgg = myGdxGame;
-        imgBackGround = new Texture("backgrounds/bg_about.jpg");
+        imgBackGround = new Texture("backgrounds/bg_shkola3.jpeg");
         // создаём кнопки
 
         btnBack = new MosquitoButton(mgg.fontLarge, "BACK", 500, 150);
