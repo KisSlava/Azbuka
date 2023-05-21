@@ -21,10 +21,10 @@ public class ScreenSettings implements Screen {
         imgBackGround = new Texture("backgrounds/bg_shkola2.jpeg");
         // создаём кнопки
         btnMode = new MosquitoButton(mgg.fontLarge, "Mode: Easy", 500, 550);
-        btnSound = new MosquitoButton(mgg.fontLarge, "Sound: ON", 500, 450);
-        btnMusic = new MosquitoButton(mgg.fontLarge, "Music: ON", 500, 350);
-        btnClearRecords = new MosquitoButton(mgg.fontLarge, "Clear Records", 500, 250);
-        btnBack = new MosquitoButton(mgg.fontLarge, "Back", 500, 150);
+        btnSound = new MosquitoButton(mgg.fontLarge, "Звук: Вкл", 500, 450);
+        btnMusic = new MosquitoButton(mgg.fontLarge, "Музыка: Вкл", 500, 350);
+        //btnClearRecords = new MosquitoButton(mgg.fontLarge, "Clear Records", 500, 250);
+        btnBack = new MosquitoButton(mgg.fontLarge, "Назад", 500, 150);
     }
 
     @Override
@@ -61,17 +61,17 @@ public class ScreenSettings implements Screen {
             }
             if(btnSound.hit(mgg.touch.x, mgg.touch.y)){
                 mgg.soundOn = !mgg.soundOn;
-                if(mgg.soundOn) btnSound.text = "Sound: ON";
-                else btnSound.text = "Sound: OFF";
+                if(mgg.soundOn) btnSound.text = "Звук: Вкл";
+                else btnSound.text = "Звук: Выкл";
             }
             if(btnMusic.hit(mgg.touch.x, mgg.touch.y)){
                 mgg.musicOn = !mgg.musicOn;
                 if(mgg.musicOn) {
-                    btnMusic.text = "Music: ON";
+                    btnMusic.text = "Музыка: Вкл";
                     mgg.screenGame.sndMusic.play();
                 }
                 else {
-                    btnMusic.text = "Music: OFF";
+                    btnMusic.text = "Музыка: Выкл";
                     mgg.screenGame.sndMusic.stop();
                 }
             }

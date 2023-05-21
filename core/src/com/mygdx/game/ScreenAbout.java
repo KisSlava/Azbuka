@@ -14,8 +14,8 @@ public class ScreenAbout implements Screen {
     MosquitoButton btnBack;
 
     String textAbout =  "Игра Азбука создана\n" +
-                        "в рамках проекта Mobile Game\n" +
-                        "Development на языке Java\n" +
+                        "в рамках проекта IT Shcool\n" +
+                        "Samsung на языке Java\n" +
                         "с использованием LibGDX.\n" +
                         "Цель игры: помочь детям\n" +
                         "в изучении букв.";

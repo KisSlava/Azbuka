@@ -26,6 +26,7 @@ public class ScreenGame implements Screen {
 	Music sndMusic;
 
 	// создание массива ссылок на объекты
+	Bukva[] bukva;
 	Mosquito[] mosq;
 	int kills;
 	long timeStart, timeCurrent;
@@ -62,10 +63,10 @@ public class ScreenGame implements Screen {
 		if(mgg.musicOn) sndMusic.play();
 
 		// создаём объекты игроков для таблицы рекордов
-		//for (int i = 0; i < players.length; i++) {
-		//	players[i] = new Player("Noname", 0);
-		//}
-		//loadTableOfRecords();
+		for (int i = 0; i < players.length; i++) {
+			players[i] = new Player("Noname", 0);
+		}
+		loadTableOfRecords();
 
 		// создаём кнопки
 		btnRestart = new MosquitoButton(mgg.font, "RESTART", 450, 200);
@@ -120,6 +121,9 @@ public class ScreenGame implements Screen {
 		for (int i = 0; i < mosq.length; i++) {
 			mosq[i].fly();
 		}
+		for (int i = 0; i < bukva.length; i++) {
+			bukva[i].fly();
+		}
 		if(gameState == PLAY_GAME) {
 			timeCurrent = TimeUtils.millis() - timeStart;
 		}
@@ -129,10 +133,12 @@ public class ScreenGame implements Screen {
 		mgg.batch.setProjectionMatrix(mgg.camera.combined);
 		mgg.batch.begin();
 		mgg.batch.draw(imgBackGround, 0, 0, SCR_WIDTH, SCR_HEIGHT);
+
 		for(int i=0; i<mosq.length; i++) {
 			mgg.batch.draw(imgMosq[mosq[i].faza], mosq[i].x, mosq[i].y, mosq[i].width, mosq[i].height, 0, 0, 500, 500, mosq[i].isFlip(), false);
+			mgg.batch.draw(imgbukva[mosq[i].faza], bukva[i].x, bukva[i].y, bukva[i].width, bukva[i].height, 0, 0, 500, 500, bukva[i].isFlip(), false);
 		}
-		mgg.font.draw(mgg.batch, "MOSQUITOS KILLED: "+kills, 10, SCR_HEIGHT-10);
+		//mgg.font.draw(mgg.batch, "MOSQUITOS KILLED: "+kills, 10, SCR_HEIGHT-10);
 		mgg.font.draw(mgg.batch, "TIME: "+timeToString(timeCurrent), SCR_WIDTH-500, SCR_HEIGHT-10);
 		if(gameState == SHOW_TABLE) {
 			mgg.fontLarge.draw(mgg.batch,"Game Over", 0, 600, SCR_WIDTH, Align.center, true);
@@ -190,6 +196,10 @@ public class ScreenGame implements Screen {
 
 	void gameStart(){
 		// создание объектов комаров
+		bukva = new Bukva[mgg.numBukva];
+		for(int i=0; i<bukva.length; i++) {
+			bukva[i] = new Bukva(mgg);
+		}
 		mosq = new Mosquito[mgg.numMosquitos];
 		for(int i=0; i<mosq.length; i++) {
 			mosq[i] = new Mosquito(mgg);

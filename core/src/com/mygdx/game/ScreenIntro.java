@@ -15,7 +15,7 @@ public class ScreenIntro implements Screen {
 
     public ScreenIntro(MyGdxGame myGdxGame){
         mgg = myGdxGame;
-        imgBackGround = new Texture("backgrounds/bg_shkola1.jpg");
+        imgBackGround = new Texture("backgrounds/bg_shkola1.png");
         // создаём кнопки
         btnGame = new MosquitoButton(mgg.fontLarge, "ИГРАТЬ", 500, 450);
         btnSettings = new MosquitoButton(mgg.fontLarge, "НАСТРОЙКИ", 500, 350);
