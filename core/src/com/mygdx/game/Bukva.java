@@ -53,7 +53,7 @@ public class Bukva {
         if(x < tx && tx < x+width && y < ty && ty < y+height){
             isAlive = false;
             vx = 0;
-            vy = -8;
+            vy = -10;
             return true;
         }
         return false;

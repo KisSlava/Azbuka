@@ -42,17 +42,17 @@ public class ScreenSettings implements Screen {
                 if(mgg.modeOfGame == MODE_EASY){
                     mgg.modeOfGame = MODE_NORMAL;
                     btnMode.text = "Сложность: Средне";
-                    mgg.sizeBukva=300;
+                    mgg.sizeBukva=150;
                     mgg.speedBukva = 5;
                 } else if(mgg.modeOfGame == MODE_NORMAL){
                     mgg.modeOfGame = MODE_HARD;
                     btnMode.text = "Сложность: Трудно";
-                    mgg.sizeBukva=200;
+                    mgg.sizeBukva=100;
                     mgg.speedBukva = 8;
                 } else if(mgg.modeOfGame == MODE_HARD){
                     mgg.modeOfGame = MODE_EASY;
                     btnMode.text = "Сложность: Легко";
-                    mgg.sizeBukva=400;
+                    mgg.sizeBukva=200;
                     mgg.speedBukva = 2;
                 }
             }
