@@ -62,13 +62,13 @@ public class ScreenGame implements Screen {
 
 		// создаём объекты игроков для таблицы рекордов
 		for (int i = 0; i < players.length; i++) {
-			players[i] = new Player("Noname", 0);
+			players[i] = new Player("Без имени", 0);
 		}
 		loadTableOfRecords();
 
 		// создаём кнопки
-		btnRestart = new MyButton(mgg.font, "RESTART", 450, 200);
-		btnExit = new MyButton(mgg.font, "EXIT", 750, 200);
+		btnRestart = new MyButton(mgg.font, "Играть снова", 450, 200);
+		btnExit = new MyButton(mgg.font, "Выход", 750, 200);
 		btnMenu = new MyButton(SCR_WIDTH-60, SCR_HEIGHT-60, 50, 50);
 	}
 
@@ -133,10 +133,10 @@ public class ScreenGame implements Screen {
 		for(int i=0; i<bukva.size(); i++) {
 			mgg.batch.draw(bukva.get(i).img, bukva.get(i).x, bukva.get(i).y, bukva.get(i).width, bukva.get(i).height);
 		}
-		//mgg.font.draw(mgg.batch, "MOSQUITOS KILLED: "+kills, 10, SCR_HEIGHT-10);
-		mgg.font.draw(mgg.batch, "TIME: "+timeToString(timeCurrent), SCR_WIDTH-500, SCR_HEIGHT-10);
+		mgg.font.draw(mgg.batch, "Букв нажато: "+answers, 10, SCR_HEIGHT-10);
+		mgg.font.draw(mgg.batch, "Время: "+timeToString(timeCurrent), SCR_WIDTH-500, SCR_HEIGHT-10);
 		if(gameState == SHOW_TABLE) {
-			mgg.fontLarge.draw(mgg.batch,"Game Over", 0, 600, SCR_WIDTH, Align.center, true);
+			mgg.fontLarge.draw(mgg.batch,"Игра окончена", 0, 600, SCR_WIDTH, Align.center, true);
 			for (int i = 0; i < players.length; i++) {
 				String s = players[i].name + "......." + timeToString(players[i].time);
 				mgg.font.draw(mgg.batch, s, 0, 500-i*50, SCR_WIDTH, Align.center, true);

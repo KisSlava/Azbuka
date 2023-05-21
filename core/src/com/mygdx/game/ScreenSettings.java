@@ -20,10 +20,10 @@ public class ScreenSettings implements Screen {
         mgg = myGdxGame;
         imgBackGround = new Texture("backgrounds/bg_shkola2.jpeg");
         // создаём кнопки
-        btnMode = new MyButton(mgg.fontLarge, "Mode: Easy", 500, 550);
+        btnMode = new MyButton(mgg.fontLarge, "Сложность: Легко", 500, 550);
         btnSound = new MyButton(mgg.fontLarge, "Звук: Вкл", 500, 450);
         btnMusic = new MyButton(mgg.fontLarge, "Музыка: Вкл", 500, 350);
-        //btnClearRecords = new MosquitoButton(mgg.fontLarge, "Clear Records", 500, 250);
+        btnClearRecords = new MyButton(mgg.fontLarge, "Очистить рекорды", 500, 250);
         btnBack = new MyButton(mgg.fontLarge, "Назад", 500, 150);
     }
 
@@ -41,16 +41,19 @@ public class ScreenSettings implements Screen {
             if(btnMode.hit(mgg.touch.x, mgg.touch.y)){
                 if(mgg.modeOfGame == MODE_EASY){
                     mgg.modeOfGame = MODE_NORMAL;
-                    btnMode.text = "Mode: Normal";
+                    btnMode.text = "Сложность: Нормально";
+                    mgg.sizeBukva=300;
+                    mgg.speedBukva = 5;
                 } else if(mgg.modeOfGame == MODE_NORMAL){
                     mgg.modeOfGame = MODE_HARD;
-                    btnMode.text = "Mode: Hard";
+                    btnMode.text = "Сложность: Трудно";
+                    mgg.sizeBukva=200;
+                    mgg.speedBukva = 8;
                 } else if(mgg.modeOfGame == MODE_HARD){
                     mgg.modeOfGame = MODE_EASY;
-                    btnMode.text = "Mode: Easy";
-                    /*mgg.numMosquitos = 10;
-                    mgg.speedMosquitos = 5;
-                    mgg.sizeMosquitos = 180;*/
+                    btnMode.text = "Сложность: Легко";
+                    mgg.sizeBukva=400;
+                    mgg.speedBukva = 2;
                 }
             }
             if(btnSound.hit(mgg.touch.x, mgg.touch.y)){
@@ -70,7 +73,7 @@ public class ScreenSettings implements Screen {
                 }
             }
             if(btnClearRecords.hit(mgg.touch.x, mgg.touch.y)){
-                btnClearRecords.text = "Records Cleared";
+                btnClearRecords.text = "Рекорды очищены";
                 mgg.screenGame.clearTableOfRecords();
                 mgg.screenGame.saveTableOfRecords();
             }
@@ -90,7 +93,7 @@ public class ScreenSettings implements Screen {
         btnMode.font.draw(mgg.batch, btnMode.text, btnMode.x, btnMode.y);
         btnSound.font.draw(mgg.batch, btnSound.text, btnSound.x, btnSound.y);
         btnMusic.font.draw(mgg.batch, btnMusic.text, btnMusic.x, btnMusic.y);
-        //btnClearRecords.font.draw(mgg.batch, btnClearRecords.text, btnClearRecords.x, btnClearRecords.y);
+        btnClearRecords.font.draw(mgg.batch, btnClearRecords.text, btnClearRecords.x, btnClearRecords.y);
         btnBack.font.draw(mgg.batch, btnBack.text, btnBack.x, btnBack.y);
         mgg.batch.end();
     }
@@ -112,7 +115,7 @@ public class ScreenSettings implements Screen {
 
     @Override
     public void hide() {
-        btnClearRecords.text = "Clear Records";
+        btnClearRecords.text = "Очистить рекорды";
     }
 
     @Override
