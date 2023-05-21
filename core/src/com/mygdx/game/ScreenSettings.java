@@ -41,7 +41,7 @@ public class ScreenSettings implements Screen {
             if(btnMode.hit(mgg.touch.x, mgg.touch.y)){
                 if(mgg.modeOfGame == MODE_EASY){
                     mgg.modeOfGame = MODE_NORMAL;
-                    btnMode.text = "Сложность: Нормально";
+                    btnMode.text = "Сложность: Средне";
                     mgg.sizeBukva=300;
                     mgg.speedBukva = 5;
                 } else if(mgg.modeOfGame == MODE_NORMAL){
