@@ -13,22 +13,21 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.ArrayList;
+
 public class ScreenGame implements Screen {
 	MyGdxGame mgg;
 
-	Texture[] imgMosq = new Texture[11]; // ссылка на текстуры (картинки)
-	Texture[] imgbukva = new Texture[33];
+	Texture[] imgBukva = new Texture[33];
 	Texture imgBackGround; // фон
 	Texture imgBtnMenu;
 
-	Sound[] sndMosq = new Sound[4];
-	Sound[] sndBuk = new Sound[33];
+	Sound[] sndBukva = new Sound[33];
 	Music sndMusic;
 
 	// создание массива ссылок на объекты
-	Bukva[] bukva;
-	Mosquito[] mosq;
-	int kills;
+	ArrayList<Bukva> bukva = new ArrayList<>();
+	int answers;
 	long timeStart, timeCurrent;
 
 	// состояние игры
@@ -37,25 +36,24 @@ public class ScreenGame implements Screen {
 
 	Player[] players = new Player[5];
 
-	MosquitoButton btnRestart, btnExit;
-	MosquitoButton btnMenu;
+	MyButton btnRestart, btnExit;
+	MyButton btnMenu;
+
+	long timeBukvaLastSpawn, timeBukvaSpawnInterval = 500;
 
 	public ScreenGame (MyGdxGame myGdxGame) {
 		mgg = myGdxGame;
 
 		// создаём объекты изображений
-		for(int i=0; i<imgMosq.length; i++){
-
-			imgMosq[i] = new Texture("mosq"+i+".png");
-			imgbukva[i] = new Texture("bukva"+i+".png");
+		for(int i=0; i<imgBukva.length; i++){
+			imgBukva[i] = new Texture("bukvas/bukva"+i+".png");
 		}
 		imgBackGround = new Texture("backgrounds/bg_shkola.png");
 		imgBtnMenu = new Texture("menu.png");
 
 		// создаём объекты звуков
-		for(int i=0; i<sndMosq.length; i++) {
-			sndMosq[i] = Gdx.audio.newSound(Gdx.files.internal("sound/mos"+i+".mp3"));
-			sndBuk[i] = Gdx.audio.newSound(Gdx.files.internal("sound/buk"+i+".mp3"));
+		for(int i=0; i<sndBukva.length; i++) {
+			sndBukva[i] = Gdx.audio.newSound(Gdx.files.internal("sound/buk"+i+".mp3"));
 		}
 		sndMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/soundcrazymosquitos.mp3"));
 		sndMusic.setLooping(true);
@@ -69,9 +67,9 @@ public class ScreenGame implements Screen {
 		loadTableOfRecords();
 
 		// создаём кнопки
-		btnRestart = new MosquitoButton(mgg.font, "RESTART", 450, 200);
-		btnExit = new MosquitoButton(mgg.font, "EXIT", 750, 200);
-		btnMenu = new MosquitoButton(SCR_WIDTH-60, SCR_HEIGHT-60, 50, 50);
+		btnRestart = new MyButton(mgg.font, "RESTART", 450, 200);
+		btnExit = new MyButton(mgg.font, "EXIT", 750, 200);
+		btnMenu = new MyButton(SCR_WIDTH-60, SCR_HEIGHT-60, 50, 50);
 	}
 
 	@Override
@@ -86,14 +84,11 @@ public class ScreenGame implements Screen {
 			mgg.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			mgg.camera.unproject(mgg.touch);
 			if(gameState == PLAY_GAME) {
-				for (int i = mosq.length - 1; i >= 0; i--) {
-					if (mosq[i].isAlive) {
-						if (mosq[i].hit(mgg.touch.x, mgg.touch.y)) {
-							kills++;
-							if(mgg.soundOn) sndMosq[MathUtils.random(0, 3)].play();
-							if (kills == mosq.length) {
-								gameState = ENTER_NAME;
-							}
+				for (int i = bukva.size() - 1; i >= 0; i--) {
+					if (bukva.get(i).isAlive) {
+						if (bukva.get(i).hit(mgg.touch.x, mgg.touch.y)) {
+							answers++;
+							if(mgg.soundOn) bukva.get(i).snd.play();
 							break;
 						}
 					}
@@ -118,11 +113,12 @@ public class ScreenGame implements Screen {
 		}
 
 		// события игры
-		for (int i = 0; i < mosq.length; i++) {
-			mosq[i].fly();
+		spawnBukvas();
+		if (bukva.size() > 33) {
+			gameState = ENTER_NAME;
 		}
-		for (int i = 0; i < bukva.length; i++) {
-			bukva[i].fly();
+		for (int i = 0; i < bukva.size(); i++) {
+			bukva.get(i).fly();
 		}
 		if(gameState == PLAY_GAME) {
 			timeCurrent = TimeUtils.millis() - timeStart;
@@ -134,9 +130,8 @@ public class ScreenGame implements Screen {
 		mgg.batch.begin();
 		mgg.batch.draw(imgBackGround, 0, 0, SCR_WIDTH, SCR_HEIGHT);
 
-		for(int i=0; i<mosq.length; i++) {
-			mgg.batch.draw(imgMosq[mosq[i].faza], mosq[i].x, mosq[i].y, mosq[i].width, mosq[i].height, 0, 0, 500, 500, mosq[i].isFlip(), false);
-			mgg.batch.draw(imgbukva[mosq[i].faza], bukva[i].x, bukva[i].y, bukva[i].width, bukva[i].height, 0, 0, 500, 500, bukva[i].isFlip(), false);
+		for(int i=0; i<bukva.size(); i++) {
+			mgg.batch.draw(bukva.get(i).img, bukva.get(i).x, bukva.get(i).y, bukva.get(i).width, bukva.get(i).height);
 		}
 		//mgg.font.draw(mgg.batch, "MOSQUITOS KILLED: "+kills, 10, SCR_HEIGHT-10);
 		mgg.font.draw(mgg.batch, "TIME: "+timeToString(timeCurrent), SCR_WIDTH-500, SCR_HEIGHT-10);
@@ -178,11 +173,11 @@ public class ScreenGame implements Screen {
 
 	@Override
 	public void dispose () {
-		for (int i = 0; i < imgMosq.length; i++) {
-			imgMosq[i].dispose();
+		for (int i = 0; i < imgBukva.length; i++) {
+			imgBukva[i].dispose();
 		}
-		for (int i = 0; i < sndMosq.length; i++) {
-			sndMosq[i].dispose();
+		for (int i = 0; i < sndBukva.length; i++) {
+			sndBukva[i].dispose();
 		}
 		sndMusic.dispose();
 		imgBackGround.dispose();
@@ -195,16 +190,7 @@ public class ScreenGame implements Screen {
 	}
 
 	void gameStart(){
-		// создание объектов комаров
-		bukva = new Bukva[mgg.numBukva];
-		for(int i=0; i<bukva.length; i++) {
-			bukva[i] = new Bukva(mgg);
-		}
-		mosq = new Mosquito[mgg.numMosquitos];
-		for(int i=0; i<mosq.length; i++) {
-			mosq[i] = new Mosquito(mgg);
-		}
-		kills = 0;
+		answers = 0;
 		gameState = PLAY_GAME;
 		timeStart = TimeUtils.millis();
 	}
@@ -235,26 +221,14 @@ public class ScreenGame implements Screen {
 	}
 
 	void sortTableOfRecords(){
-		for (int i = 0; i < players.length; i++) {
-			if(players[i].time == 0) players[i].time = 1000000;
-		}
 		for (int j = 0; j < players.length-1; j++) {
 			for (int i = 0; i < players.length-1; i++) {
-				if(players[i].time>players[i+1].time){
-					long c = players[i].time;
-					players[i].time = players[i+1].time;
-					players[i+1].time = c;
-					String s = players[i].name;
-					players[i].name = players[i+1].name;
-					players[i+1].name = s;
-					/* Player c = players[i];
+				if(players[i].time<players[i+1].time){
+					Player c = players[i];
 					players[i] = players[i+1];
-					players[i+1] = c; */
+					players[i+1] = c;
 				}
 			}
-		}
-		for (int i = 0; i < players.length; i++) {
-			if(players[i].time == 1000000) players[i].time = 0;
 		}
 	}
 
@@ -262,6 +236,14 @@ public class ScreenGame implements Screen {
 		for (int i = 0; i < players.length; i++) {
 			players[i].name = "Noname";
 			players[i].time = 0;
+		}
+	}
+
+	void spawnBukvas(){
+		if(TimeUtils.millis() > timeBukvaLastSpawn+timeBukvaSpawnInterval){
+			int rnd = MathUtils.random(0, 32);
+			bukva.add(new Bukva(mgg, imgBukva[rnd], sndBukva[rnd], rnd));
+			timeBukvaLastSpawn = TimeUtils.millis();
 		}
 	}
 }

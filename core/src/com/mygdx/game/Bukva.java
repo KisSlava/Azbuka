@@ -3,6 +3,8 @@ package com.mygdx.game;
 import static com.mygdx.game.MyGdxGame.SCR_HEIGHT;
 import static com.mygdx.game.MyGdxGame.SCR_WIDTH;
 
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Bukva {
@@ -10,25 +12,28 @@ public class Bukva {
     float x, y;
     float vx, vy;
     float width, height;
-    int faza, nFaz = 33;
     boolean isAlive = true;
+    Texture img;
+    Sound snd;
+    int type;
 
-    public Bukva(MyGdxGame myGdxGame){
+    public Bukva(MyGdxGame myGdxGame, Texture img, Sound snd, int type){
+        this.img = img;
+        this.snd = snd;
+        this.type = type;
         mgg = myGdxGame;
-        width = height = mgg.sizeBukva+50;
+        width = height = mgg.sizeBukva;
         x = SCR_WIDTH / 2f - width / 2;
         y = SCR_HEIGHT / 2f - height / 2;
-        vx = MathUtils.random(-mgg.speedMosquitos, mgg.speedMosquitos);
-        vy = MathUtils.random(-mgg.speedMosquitos, mgg.speedMosquitos);
-        faza = MathUtils.random(0, nFaz);
+        vx = MathUtils.random(-mgg.speedBukva, mgg.speedBukva);
+        vy = MathUtils.random(-mgg.speedBukva, mgg.speedBukva);
     }
 
     void fly(){
         x += vx;
         y += vy;
         if(isAlive) {
-            outOfBounds2();
-            changePhase();
+            outOfBounds1();
         }
     }
 
@@ -44,19 +49,9 @@ public class Bukva {
         if(y> SCR_HEIGHT) y = 0-height;
     }
 
-    void changePhase(){
-        if(++faza == nFaz) faza = 0;
-        //faza = ++faza % nFaz;
-    }
-
-    boolean isFlip(){
-        return vx>0;
-    }
-
     boolean hit(float tx, float ty){
         if(x < tx && tx < x+width && y < ty && ty < y+height){
             isAlive = false;
-            //faza = 10;
             vx = 0;
             vy = -8;
             return true;

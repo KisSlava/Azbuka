@@ -14,17 +14,17 @@ public class ScreenSettings implements Screen {
     MyGdxGame mgg;
 
     Texture imgBackGround; // фон
-    MosquitoButton btnMode, btnSound, btnMusic, btnClearRecords, btnBack;
+    MyButton btnMode, btnSound, btnMusic, btnClearRecords, btnBack;
 
     public ScreenSettings(MyGdxGame myGdxGame){
         mgg = myGdxGame;
         imgBackGround = new Texture("backgrounds/bg_shkola2.jpeg");
         // создаём кнопки
-        btnMode = new MosquitoButton(mgg.fontLarge, "Mode: Easy", 500, 550);
-        btnSound = new MosquitoButton(mgg.fontLarge, "Звук: Вкл", 500, 450);
-        btnMusic = new MosquitoButton(mgg.fontLarge, "Музыка: Вкл", 500, 350);
+        btnMode = new MyButton(mgg.fontLarge, "Mode: Easy", 500, 550);
+        btnSound = new MyButton(mgg.fontLarge, "Звук: Вкл", 500, 450);
+        btnMusic = new MyButton(mgg.fontLarge, "Музыка: Вкл", 500, 350);
         //btnClearRecords = new MosquitoButton(mgg.fontLarge, "Clear Records", 500, 250);
-        btnBack = new MosquitoButton(mgg.fontLarge, "Назад", 500, 150);
+        btnBack = new MyButton(mgg.fontLarge, "Назад", 500, 150);
     }
 
     @Override
@@ -42,21 +42,15 @@ public class ScreenSettings implements Screen {
                 if(mgg.modeOfGame == MODE_EASY){
                     mgg.modeOfGame = MODE_NORMAL;
                     btnMode.text = "Mode: Normal";
-                    mgg.numMosquitos = 50;
-                    mgg.speedMosquitos = 7;
-                    mgg.sizeMosquitos = 120;
                 } else if(mgg.modeOfGame == MODE_NORMAL){
                     mgg.modeOfGame = MODE_HARD;
                     btnMode.text = "Mode: Hard";
-                    mgg.numMosquitos = 250;
-                    mgg.speedMosquitos = 10;
-                    mgg.sizeMosquitos = 80;
                 } else if(mgg.modeOfGame == MODE_HARD){
                     mgg.modeOfGame = MODE_EASY;
                     btnMode.text = "Mode: Easy";
-                    mgg.numMosquitos = 10;
+                    /*mgg.numMosquitos = 10;
                     mgg.speedMosquitos = 5;
-                    mgg.sizeMosquitos = 180;
+                    mgg.sizeMosquitos = 180;*/
                 }
             }
             if(btnSound.hit(mgg.touch.x, mgg.touch.y)){

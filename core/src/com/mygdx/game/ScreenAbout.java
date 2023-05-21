@@ -11,7 +11,7 @@ public class ScreenAbout implements Screen {
     MyGdxGame mgg;
 
     Texture imgBackGround; // фон
-    MosquitoButton btnBack;
+    MyButton btnBack;
 
     String textAbout =  "Игра Азбука создана\n" +
                         "в рамках проекта IT Shcool\n" +
@@ -25,7 +25,7 @@ public class ScreenAbout implements Screen {
         imgBackGround = new Texture("backgrounds/bg_shkola3.jpeg");
         // создаём кнопки
 
-        btnBack = new MosquitoButton(mgg.fontLarge, "BACK", 500, 150);
+        btnBack = new MyButton(mgg.fontLarge, "BACK", 500, 150);
     }
 
     @Override

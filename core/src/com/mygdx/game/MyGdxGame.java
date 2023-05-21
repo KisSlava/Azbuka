@@ -29,11 +29,8 @@ public class MyGdxGame extends Game {
 	public static final int MODE_EASY = 0, MODE_NORMAL = 1, MODE_HARD = 2;
 	int modeOfGame = MODE_EASY; // сложность игры
 	int numBukva = 33;
-	int numMosquitos = 5;
-	float sizeBukva = 150;
-	float sizeMosquitos = 150;
+	float sizeBukva = 300;
 	float speedBukva = 5;
-	float speedMosquitos = 5;
 	
 	@Override
 	public void create () {
