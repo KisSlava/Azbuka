@@ -17,10 +17,12 @@ public class ScreenGame implements Screen {
 	MyGdxGame mgg;
 
 	Texture[] imgMosq = new Texture[11]; // ссылка на текстуры (картинки)
+	Texture[] imgbukva = new Texture[33];
 	Texture imgBackGround; // фон
 	Texture imgBtnMenu;
 
 	Sound[] sndMosq = new Sound[4];
+	Sound[] sndBuk = new Sound[33];
 	Music sndMusic;
 
 	// создание массива ссылок на объекты
@@ -42,7 +44,9 @@ public class ScreenGame implements Screen {
 
 		// создаём объекты изображений
 		for(int i=0; i<imgMosq.length; i++){
+
 			imgMosq[i] = new Texture("mosq"+i+".png");
+			imgbukva[i] = new Texture("bukva"+i+"png");
 		}
 		imgBackGround = new Texture("backgrounds/bg_shkola.png");
 		imgBtnMenu = new Texture("menu.png");
@@ -50,6 +54,7 @@ public class ScreenGame implements Screen {
 		// создаём объекты звуков
 		for(int i=0; i<sndMosq.length; i++) {
 			sndMosq[i] = Gdx.audio.newSound(Gdx.files.internal("sound/mos"+i+".mp3"));
+			sndBuk[i] = Gdx.audio.newSound(Gdx.files.internal("sound/buk"+i+".mp3"));
 		}
 		sndMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/soundcrazymosquitos.mp3"));
 		sndMusic.setLooping(true);
