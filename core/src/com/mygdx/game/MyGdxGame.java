@@ -29,7 +29,7 @@ public class MyGdxGame extends Game {
 	public static final int MODE_EASY = 0, MODE_NORMAL = 1, MODE_HARD = 2;
 	int modeOfGame = MODE_EASY; // сложность игры
 	int numBukva = 33;
-	float sizeBukva = 300;
+	float sizeBukva = 200;
 	float speedBukva = 5;
 	
 	@Override
@@ -56,7 +56,7 @@ public class MyGdxGame extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.characters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 		parameter.size = 50;
-		parameter.color = Color.RED;
+		parameter.color = Color.GREEN;
 		parameter.borderWidth = 2;
 		parameter.borderColor = Color.BLACK;
 		font = generator.generateFont(parameter);
