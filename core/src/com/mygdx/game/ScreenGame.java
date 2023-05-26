@@ -39,7 +39,7 @@ public class ScreenGame implements Screen {
     MyButton btnRestart, btnExit;
     MyButton btnMenu;
 
-    long timeBukvaLastSpawn, timeBukvaSpawnInterval = 500;
+    long timeBukvaLastSpawn, timeBukvaSpawnInterval = 1000;
 
     public ScreenGame(MyGdxGame myGdxGame) {
         mgg = myGdxGame;
@@ -111,11 +111,11 @@ public class ScreenGame implements Screen {
                 mgg.setScreen(mgg.screenIntro);
             }
         }
-        /*for (char c = 'А'; c <= 'Я'; c++) {
-            if (Gdx.input.(Input.Keys.)) {
+        for (char c = 'А'; c <= 'Я'; c++) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.valueOf(""+c))) {
                 System.out.println('и');
             }
-        }*/
+        }
 
 
         // события игры
@@ -137,8 +137,9 @@ public class ScreenGame implements Screen {
         mgg.batch.draw(imgBackGround, 0, 0, SCR_WIDTH, SCR_HEIGHT);
 
         for (int i = 0; i < bukva.size(); i++) {
-            mgg.batch.draw(bukva.get(i).img, bukva.get(i).x, bukva.get(i).y, bukva.get(i).width, bukva.get(i).height);
+            mgg.batch.draw(bukva.get(i).img, bukva.get(i).scrX(), bukva.get(i).scrY(), bukva.get(i).width, bukva.get(i).height);
         }
+
         mgg.font.draw(mgg.batch, "Угадано: " + letters, 10, SCR_HEIGHT - 10);
         mgg.font.draw(mgg.batch, "Время: " + timeToString(timeCurrent), SCR_WIDTH - 500, SCR_HEIGHT - 10);
         if (gameState == ENTER_NAME) {
@@ -249,7 +250,7 @@ public class ScreenGame implements Screen {
     void spawnBukvas() {
         if (TimeUtils.millis() > timeBukvaLastSpawn + timeBukvaSpawnInterval) {
             int rnd = MathUtils.random(0, 32);
-            bukva.add(new Bukva(mgg, imgBukva[rnd], sndBukva[rnd], rnd));
+            bukva.add(new Bukva(imgBukva[rnd], sndBukva[rnd], rnd));
             timeBukvaLastSpawn = TimeUtils.millis();
         }
     }
