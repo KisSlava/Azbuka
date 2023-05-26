@@ -56,7 +56,7 @@ public class MyGdxGame extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.characters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 		parameter.size = 50;
-		parameter.color = Color.GREEN;
+		parameter.color = Color.BLUE;
 		parameter.borderWidth = 2;
 		parameter.borderColor = Color.BLACK;
 		font = generator.generateFont(parameter);

@@ -142,6 +142,9 @@ public class ScreenGame implements Screen {
         }
         mgg.font.draw(mgg.batch, "Угадано: " + letters, 10, SCR_HEIGHT - 10);
         mgg.font.draw(mgg.batch, "Время: " + timeToString(timeCurrent), SCR_WIDTH - 500, SCR_HEIGHT - 10);
+        if (gameState == ENTER_NAME) {
+            mgg.keyboard.draw(mgg.batch);
+        }
         if (gameState == SHOW_TABLE) {
             mgg.fontLarge.draw(mgg.batch, "Игра окончена", 0, 600, SCR_WIDTH, Align.center, true);
             for (int i = 0; i < players.length; i++) {
@@ -151,9 +154,7 @@ public class ScreenGame implements Screen {
             mgg.font.draw(mgg.batch, btnRestart.text, btnRestart.x, btnRestart.y);
             mgg.font.draw(mgg.batch, btnExit.text, btnExit.x, btnExit.y);
         }
-        if (gameState == ENTER_NAME) {
-            mgg.keyboard.draw(mgg.batch);
-        }
+
         mgg.batch.draw(imgBtnMenu, btnMenu.x, btnMenu.y, btnMenu.width, btnMenu.height);
         mgg.batch.end();
     }
