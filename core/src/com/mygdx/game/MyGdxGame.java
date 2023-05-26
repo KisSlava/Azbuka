@@ -26,7 +26,7 @@ public class MyGdxGame extends Game {
 
 	boolean soundOn = true;
 	boolean musicOn = true;
-	public static final int MODE_EASY = 0, MODE_NORMAL = 1, MODE_HARD = 2;
+	public static final int MODE_EASY = 3, MODE_NORMAL = 4, MODE_HARD = 5;
 	int modeOfGame = MODE_EASY; // сложность игры
 	int numBukva = 33;
 	float sizeBukva = 200;
