@@ -29,9 +29,9 @@ public class MyGdxGame extends Game {
 	public static final int MODE_EASY = 0, MODE_NORMAL = 1, MODE_HARD = 2;
 	int modeOfGame = MODE_EASY; // сложность игры
 	int numBukva = 33;
-	float sizeBukva = 200;
-	float speedBukva = 5;
-	
+	static float sizeBukva = 100;
+	static float speedBukva = 5;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch(); // создаём объект, отвечающий за вывод изображений

@@ -12,8 +12,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class InputKeyboard {
-    private final String fontName = "mr_countryhouse.ttf";
-    private final String imageKeys = "keys.png";
+    private final String nameOfFont = "mr_countryhouse.ttf";
+    private final String nameOfImgKeys = "keys.png";
+    private final int fontSize = 30;
 
     private boolean endOfEdit;
 
@@ -45,7 +46,7 @@ public class InputKeyboard {
         generateFont();
         this.textLength = textLength; // количество вводимых символов
 
-        imgAtlasKeys = new Texture(imageKeys);
+        imgAtlasKeys = new Texture(nameOfImgKeys);
         imgKeyUP = new TextureRegion(imgAtlasKeys, 0, 0, 256, 256);
         imgKeyDown = new TextureRegion(imgAtlasKeys, 256, 0, 256, 256);
         imgEditText = new TextureRegion(imgAtlasKeys, 256*2, 0, 256, 256);
@@ -136,7 +137,7 @@ public class InputKeyboard {
     }
 
     // проверяем, куда нажали
-    public boolean endOfEdit(float tx, float ty){
+    public void hit(float tx, float ty){
         for (int i = 0; i < keys.size; i++) {
             if(!keys.get(i).hit(tx, ty).equals("")){
                 keyPressed = i;
@@ -144,12 +145,6 @@ public class InputKeyboard {
                 timeStart = TimeUtils.millis();
             }
         }
-        // окончание редактирования ввода (нажата кнопка enter)
-        if(endOfEdit){
-            endOfEdit = false;
-            return true;
-        }
-        return false;
     }
 
     // обработка нажатия кнопок
@@ -184,6 +179,14 @@ public class InputKeyboard {
         }
     }
 
+    // окончание редактирования ввода (нажата кнопка enter)
+    public boolean endOfEdit(float tx, float ty){
+        hit(tx, ty);
+        if(!endOfEdit) return false;
+        endOfEdit = false;
+        return true;
+    }
+
     // выдача отредактированного текста
     public String getText() {
         return text;
@@ -215,14 +218,17 @@ public class InputKeyboard {
     }
 
     private void generateFont(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontName));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(nameOfFont));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.color = new Color(1, 1, 1, 1);
-        parameter.size = 50;
+        parameter.size = fontSize;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 1;
         parameter.borderStraight = true;
-        parameter.characters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
+        String str = "";
+        for (char i = 0x20; i < 0x7B; i++) str += i;
+        for (char i = 0x401; i < 0x452; i++) str += i;
+        parameter.characters = str;
         font = generator.generateFont(parameter);
         generator.dispose();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

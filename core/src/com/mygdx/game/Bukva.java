@@ -1,32 +1,31 @@
 package com.mygdx.game;
 
-import static com.mygdx.game.MyGdxGame.SCR_HEIGHT;
-import static com.mygdx.game.MyGdxGame.SCR_WIDTH;
+import static com.mygdx.game.MyGdxGame.*;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Bukva {
-    MyGdxGame mgg;
     float x, y;
     float vx, vy;
     float width, height;
+    float r;
     boolean isAlive = true;
     Texture img;
     Sound snd;
     int type;
 
-    public Bukva(MyGdxGame myGdxGame, Texture img, Sound snd, int type){
+    public Bukva(Texture img, Sound snd, int type){
         this.img = img;
         this.snd = snd;
         this.type = type;
-        mgg = myGdxGame;
-        width = height = mgg.sizeBukva;
+        width = height = sizeBukva;
+        r = width/2;
         x = SCR_WIDTH / 2f - width / 2;
         y = SCR_HEIGHT / 2f - height / 2;
-        vx = MathUtils.random(-mgg.speedBukva, mgg.speedBukva);
-        vy = MathUtils.random(-mgg.speedBukva, mgg.speedBukva);
+        vx = MathUtils.random(-speedBukva, speedBukva);
+        vy = MathUtils.random(-speedBukva, speedBukva);
     }
 
     void fly(){
@@ -38,8 +37,8 @@ public class Bukva {
     }
 
     void outOfBounds1(){
-        if(x<0 || x> SCR_WIDTH -width) vx = -vx;
-        if(y<0 || y> SCR_HEIGHT -height) vy = -vy;
+        if(x<width/2 || x> SCR_WIDTH-width/2) vx = -vx;
+        if(y<height/2 || y> SCR_HEIGHT-height/2) vy = -vy;
     }
 
     void outOfBounds2(){
@@ -50,12 +49,21 @@ public class Bukva {
     }
 
     boolean hit(float tx, float ty){
-        if(x < tx && tx < x+width && y < ty && ty < y+height){
+        //if(x < tx && tx < x+width && y < ty && ty < y+height){
+        if(Math.pow(tx-x,2) + Math.pow(ty-y,2) < r*r){
             isAlive = false;
             vx = 0;
             vy = -10;
             return true;
         }
         return false;
+    }
+
+    public float scrX() {
+        return x-width/2;
+    }
+
+    public float scrY() {
+        return y-height/2;
     }
 }
