@@ -111,11 +111,11 @@ public class ScreenGame implements Screen {
                 mgg.setScreen(mgg.screenIntro);
             }
         }
-        for (char c = 'А'; c <= 'Я'; c++) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.valueOf(""+c))) {
-                System.out.println('и');
-            }
-        }
+        //for (char c = 'А'; c <= 'Я'; c++) {
+        //    if (Gdx.input.isKeyJustPressed(Input.Keys.valueOf(""+c))) {
+        //        System.out.println('и');
+        //    }
+        //}
 
 
         // события игры
